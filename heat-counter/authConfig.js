@@ -10,7 +10,7 @@ const msalConfig = {
         // Full directory URL, in the form of https://login.microsoftonline.com/<tenant>
         authority: "https://login.microsoftonline.com/0b6961ec-79f9-4028-8f1c-fd86a7b5e520",
         // Full redirect URL, in form of http://localhost:3000
-        redirectUri: "http://localhost:3000",
+        redirectUri: "https://heat-counter.cyberbartels.de",
     },
     cache: {
         cacheLocation: "sessionStorage", // This configures where your cache will be stored
