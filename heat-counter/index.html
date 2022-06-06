@@ -24,7 +24,7 @@
 
 
 </head>
-   
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="/">Microsoft identity platform</a>
@@ -66,12 +66,17 @@
   <br>
   <br>
 
-  
-  <button id="start-camera">Start Camera</button>
-  <video id="video" width="320" height="240" autoplay playsinline></video>
-  <button id="take-photo">Take <Picture></Picture></button>
-  <canvas id="canvas" width="320" height="240"></canvas>
-
+  <div class="capturePic">
+    <button id="start-camera">Start Camera</button>
+    <video id="video" width="320" height="240" autoplay playsinline></video>
+    <button id="take-photo">Take Picture</button>
+    <canvas id="canvas" width="320" height="240"></canvas>
+    <button id="analyze-photo">Check Picture</button>
+    <form id="result-form">
+      <select id="select-result">
+      </select>
+    </form>
+  </div>
 
   <!-- importing bootstrap.js and supporting js libraries -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
