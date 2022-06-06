@@ -2,8 +2,8 @@
 const welcomeDiv = document.getElementById("WelcomeMessage");
 const signInButton = document.getElementById("SignIn");
 const cardDiv = document.getElementById("card-div");
-const mailButton = document.getElementById("readMail");
-const profileButton = document.getElementById("seeProfile");
+const sendButton = document.getElementById("sendData");
+const captureButton = document.getElementById("captureData");
 const profileDiv = document.getElementById("profile-div");
 
 function showWelcomeMessage(username) {
@@ -41,7 +41,7 @@ function updateUI(data, endpoint) {
         } else {
             const tabContent = document.getElementById("nav-tabContent");
             const tabList = document.getElementById("list-tab");
-            tabList.innerHTML = ''; // clear tabList at each readMail call
+            tabList.innerHTML = ''; // clear tabList at each sendData call
 
             data.value.map((d, i) => {
                 // Keeping it simple

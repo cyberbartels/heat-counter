@@ -94,7 +94,7 @@ function getTokenPopup(request) {
     });
 }
 
-function seeProfile() {
+function captureData() {
     getTokenPopup(loginRequest)
         .then(response => {
             callMSGraph(graphConfig.graphMeEndpoint, response.accessToken, updateUI);
@@ -103,7 +103,7 @@ function seeProfile() {
         });
 }
 
-function readMail() {
+function sendData() {
     getTokenPopup(tokenRequest)
         .then(response => {
             callMSGraph(graphConfig.graphMailEndpoint, response.accessToken, updateUI);

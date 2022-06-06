@@ -21,6 +21,8 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="SHORTCUT ICON" href="https://c.s-microsoft.com/favicon.ico?v2" type="image/x-icon">
+
+
 </head>
 
 <body>
@@ -33,20 +35,20 @@
     </div>
   </nav>
   <br>
-  <h5 class="card-header text-center">Vanilla JavaScript SPA calling MS Graph API with MSAL.js</h5>
+  <h5 class="card-header text-center">Simple JavaScript SPA calling API with MSAL.js</h5>
   <br>
   <div class="row" style="margin:auto">
     <div id="card-div" class="col-md-3" style="display:none">
       <div class="card text-center">
         <div class="card-body">
-          <h5 class="card-title" id="WelcomeMessage">Please sign-in to see your profile and read your mails</h5>
+          <h5 class="card-title" id="WelcomeMessage">Please sign-in to update heat counter data</h5>
           <div id="profile-div"></div>
           <br>
           <br>
-          <button class="btn btn-primary" id="seeProfile" onclick="seeProfile()">See Profile</button>
+          <button class="btn btn-primary" id="captureData" onclick="captureData()">Capture data</button>
           <br>
           <br>
-          <button class="btn btn-primary" id="readMail" onclick="readMail()">Read Mails</button>
+          <button class="btn btn-primary" id="sendData" onclick="sendData()">Send data</button>
         </div>
       </div>
     </div>
@@ -63,6 +65,13 @@
   </div>
   <br>
   <br>
+
+  
+  <button id="start-camera">Start Camera</button>
+  <video id="video" width="320" height="240" autoplay></video>
+  <button id="click-photo">Click Photo</button>
+  <canvas id="canvas" width="320" height="240"></canvas>
+
 
   <!-- importing bootstrap.js and supporting js libraries -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

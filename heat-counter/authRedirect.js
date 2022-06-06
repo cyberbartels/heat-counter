@@ -88,7 +88,7 @@ function getTokenRedirect(request) {
         });
 }
 
-function seeProfile() {
+function captureData() {
     getTokenRedirect(loginRequest)
         .then(response => {
             callMSGraph(graphConfig.graphMeEndpoint, response.accessToken, updateUI);
@@ -97,7 +97,7 @@ function seeProfile() {
         });
 }
 
-function readMail() {
+function sendData() {
     getTokenRedirect(tokenRequest)
         .then(response => {
             callMSGraph(graphConfig.graphMailEndpoint, response.accessToken, updateUI);
