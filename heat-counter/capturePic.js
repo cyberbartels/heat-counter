@@ -35,6 +35,6 @@ analyze_photo_button.addEventListener('click', async function() {
             el.value = opt;
         
             result_selector.add(el);
-        }​
+        };​
     });
 });
