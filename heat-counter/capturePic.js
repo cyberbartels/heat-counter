@@ -19,13 +19,13 @@ take_photo_button.addEventListener('click', function() {
 });
 
 analyze_photo_button.addEventListener('click', async function() {
-    result_selector.innerHTML = "";
     canvas.toBlob(blob=> {
         console.log(blob);
 
         let base64 = getBase64StringFromDataURL(blob);
         console.log(base64);
-
+        
+        result_selector.innerHTML = "";
         let options = ["a1", "b2", "c3", "d4", "e5"]; 
         for(var i = 0; i < options.length; i++) {
             var opt = options[i];
