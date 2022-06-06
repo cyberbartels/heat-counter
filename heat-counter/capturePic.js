@@ -25,16 +25,16 @@ analyze_photo_button.addEventListener('click', async function() {
         let base64 = getBase64StringFromDataURL(blob);
         console.log(base64);
         
-        result_selector.innerHTML = "";
-        let options = ["a1", "b2", "c3", "d4", "e5"]; 
-        for(var i = 0; i < options.length; i++) {
-            var opt = options[i];
+        // result_selector.innerHTML = "";
+        // let options = ["a1", "b2", "c3", "d4", "e5"]; 
+        // for(var i = 0; i < options.length; i++) {
+        //     var opt = options[i];
         
-            var el = document.createElement("option");
-            el.text = opt;
-            el.value = opt;
+        //     var el = document.createElement("option");
+        //     el.text = opt;
+        //     el.value = opt;
         
-            result_selector.add(el);
-        };​
+        //     result_selector.add(el);
+        // };​
     });
 });
