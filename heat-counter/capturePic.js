@@ -23,6 +23,9 @@ analyze_photo_button.addEventListener('click', async function() {
     canvas.toBlob(blob=> {
         console.log(blob);
 
+        let base64 = getBase64StringFromDataURL(blob);
+        console.log(base64);
+
         let options = ["a1", "b2", "c3", "d4", "e5"]; 
         for(var i = 0; i < options.length; i++) {
             var opt = options[i];
@@ -31,7 +34,7 @@ analyze_photo_button.addEventListener('click', async function() {
             el.text = opt;
             el.value = opt;
         
-            select.add(el);
+            result_selector.add(el);
         }​
     });
 });
