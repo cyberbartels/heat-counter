@@ -26,6 +26,10 @@ analyze_photo_button.addEventListener('click', async function () {
     console.log(image_data_url);
     console.log(getBase64StringFromDataURL(image_data_url));
 
+    let pictureBytes = { pictureBytes: getBase64StringFromDataURL(image_data_url)}
+    let requestBody = JSON.stringify(pictureBytes);
+    onsole.log(requestBody);
+
     result_selector.innerHTML = "";
     let options = ["a1", "b2", "c3", "d4", "e5"]; 
     for(var i = 0; i < options.length; i++) {
