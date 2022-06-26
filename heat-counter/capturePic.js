@@ -22,13 +22,31 @@ take_photo_button.addEventListener('click', function () {
 });
 
 analyze_photo_button.addEventListener('click', async function () {
+    //Get picture bytes base64 encoded
     let image_data_url = canvas.toDataURL('image/jpeg');
     console.log(image_data_url);
     console.log(getBase64StringFromDataURL(image_data_url));
-
     let pictureBytes = { pictureBytes: getBase64StringFromDataURL(image_data_url)}
+    
+    //Wrap in JSON
     let requestBody = JSON.stringify(pictureBytes);
     console.log(requestBody);
+
+    //Call API
+    let xhr = new XMLHttpRequest();
+    let url = "https://heat-counter-api.azurewebsites.net/api/analyzePicture" 
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            console.log(xhr.responseText);
+            console.log(json);
+        }
+    }   ;
+    var data = requestBody;
+    xhr.send(data);
+
 
     result_selector.innerHTML = "";
     let options = ["a1", "b2", "c3", "d4", "e5"]; 
