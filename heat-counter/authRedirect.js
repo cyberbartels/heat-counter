@@ -1,72 +1,51 @@
+// *******************************************************
+// START: THIS PART REMAINS THE SAME, DON'T MODIFY
+// *******************************************************
+
 // Create the main myMSALObj instance
 // configuration parameters are located at authConfig.js
 const myMSALObj = new msal.PublicClientApplication(msalConfig);
 
+let accessToken;
 let username = "";
 
-/**
- * A promise handler needs to be registered for handling the
- * response returned from redirect flow. For more information, visit:
- * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/acquire-token.md
- */
-myMSALObj.handleRedirectPromise()
-    .then(handleResponse)
-    .catch((error) => {
-        console.error(error);
-    });
+// Redirect: once login is successful and redirects with tokens, call Graph API
+myMSALObj.handleRedirectPromise().then(handleResponse).catch(err => {
+    console.error(err);
+});
 
-function selectAccount () {
-
-    /**
-     * See here for more info on account retrieval: 
-     * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
-     */
-
-    const currentAccounts = myMSALObj.getAllAccounts();
-
-    if (currentAccounts.length === 0) {
-        return;
-    } else if (currentAccounts.length > 1) {
-        // Add your account choosing logic here
-        console.warn("Multiple accounts detected.");
-    } else if (currentAccounts.length === 1) {
-        username = currentAccounts[0].username;
-        showWelcomeMessage(username);
-    }
-}
-
-function handleResponse(response) {
-    if (response !== null) {
-        username = response.account.username;
-        showWelcomeMessage(username);
+function handleResponse(resp) {
+    if (resp !== null) {
+        username = resp.account.username;
+        loginCallback(resp.account);
     } else {
-        selectAccount();
+        /**
+         * See here for more info on account retrieval: 
+         * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
+         */
+        const currentAccounts = myMSALObj.getAllAccounts();
+        if (currentAccounts === null) {
+            return;
+        } else if (currentAccounts.length > 1) {
+            // Add choose account code here
+            console.warn("Multiple accounts detected.");
+        } else if (currentAccounts.length === 1) {
+            username = currentAccounts[0].username;
+            loginCallback(currentAccounts[0]);
+        }
     }
 }
 
 function signIn() {
-
-    /**
-     * You can pass a custom request object below. This will override the initial configuration. For more information, visit:
-     * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/request-response-object.md#request
-     */
-
     myMSALObj.loginRedirect(loginRequest);
 }
 
 function signOut() {
-
-    /**
-     * You can pass a custom request object below. This will override the initial configuration. For more information, visit:
-     * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/request-response-object.md#request
-     */
-
     const logoutRequest = {
-        account: myMSALObj.getAccountByUsername(username),
-        postLogoutRedirectUri: msalConfig.auth.redirectUri,
+        account: myMSALObj.getAccountByUsername(username)
     };
 
-    myMSALObj.logoutRedirect(logoutRequest);
+    myMSALObj.logout(logoutRequest);
 }
 
 function getTokenRedirect(request) {
@@ -75,9 +54,7 @@ function getTokenRedirect(request) {
      * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
      */
     request.account = myMSALObj.getAccountByUsername(username);
-
-    return myMSALObj.acquireTokenSilent(request)
-        .catch(error => {
+    return myMSALObj.acquireTokenSilent(request).catch(error => {
             console.warn("silent token acquisition fails. acquiring token using redirect");
             if (error instanceof msal.InteractionRequiredAuthError) {
                 // fallback to interaction when silent call fails
@@ -88,20 +65,10 @@ function getTokenRedirect(request) {
         });
 }
 
-function captureData() {
-    getTokenRedirect(loginRequest)
-        .then(response => {
-            callMSGraph(graphConfig.graphMeEndpoint, response.accessToken, updateUI);
-        }).catch(error => {
-            console.error(error);
-        });
-}
+// *******************************************************
+// END: THE ABOVE PART REMAINS THE SAME, DON'T MODIFY
+// *******************************************************
 
-function sendData() {
-    getTokenRedirect(tokenRequest)
-        .then(response => {
-            callMSGraph(graphConfig.graphMailEndpoint, response.accessToken, updateUI);
-        }).catch(error => {
-            console.error(error);
-        });
-}
+// The things you need for login are as above, you don't need to add or remove
+// anything from here. In other examples, 
+// here would be the implementation of the api/function calls.

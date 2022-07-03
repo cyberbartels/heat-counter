@@ -1,61 +1,38 @@
-/**
- * Configuration object to be passed to MSAL instance on creation. 
- * For a full list of MSAL.js configuration parameters, visit:
- * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/configuration.md 
- */
+// Config object to be passed to Msal on creation.
+// For a full list of msal.js configuration parameters, 
+// visit https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/configuration.md
+
 const msalConfig = {
     auth: {
-        // 'Application (client) ID' of app registration in Azure portal - this value is a GUID
-        clientId: "38e0408f-a7db-4cd1-b196-48bbbb6f5eea",
-        // Full directory URL, in the form of https://login.microsoftonline.com/<tenant>
+
+        // Replace with your app/client ID on AAD Portal.
+        clientId: "1789abad-86f9-46e1-9cf1-22467aff1a6f",
+
+        // Replace with "https://login.microsoftonline.com/common/" 
+        // Note: This is for multi-tenant applications located on the global Azure cloud. 
+        // For more information, see the documentation 
+        // https://docs.microsoft.com/azure/active-directory/develop/quickstart-v2-javascript-auth-code.
         authority: "https://login.microsoftonline.com/0b6961ec-79f9-4028-8f1c-fd86a7b5e520",
-        // Full redirect URL, in form of http://localhost:3000
-        redirectUri: "https://heat-counter.cyberbartels.de",
+        
+        // Replace with the redirect uri you setup on AAD Portal.
+        // example redirectUri: "https://core.jannehansen.com/spa/plainlogin"
+        redirectUri: "https://heat-counter.cyberbartels.de/plainlogin.html"
+
     },
     cache: {
-        cacheLocation: "sessionStorage", // This configures where your cache will be stored
+        cacheLocation: "localStorage", // This configures where your cache will be stored
         storeAuthStateInCookie: false, // Set this to "true" if you are having issues on IE11 or Edge
     },
-    system: {	
-        loggerOptions: {	
-            loggerCallback: (level, message, containsPii) => {	
-                if (containsPii) {		
-                    return;		
-                }		
-                switch (level) {		
-                    case msal.LogLevel.Error:		
-                        console.error(message);		
-                        return;		
-                    case msal.LogLevel.Info:		
-                        console.info(message);		
-                        return;		
-                    case msal.LogLevel.Verbose:		
-                        console.debug(message);		
-                        return;		
-                    case msal.LogLevel.Warning:		
-                        console.warn(message);		
-                        return;		
-                }	
-            }	
-        }	
+    system: {
+        loggerOptions: {
+            loggerCallback: (level, message, containsPii) => {
+                console.log(message);	
+            }
+        }
     }
 };
 
-/**
- * Scopes you add here will be prompted for user consent during sign-in.
- * By default, MSAL.js will add OIDC scopes (openid, profile, email) to any login request.
- * For more information about OIDC scopes, visit: 
- * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
- */
+// Add here the scopes that you would like the user to consent during sign-in
 const loginRequest = {
     scopes: ["User.Read"]
-};
-
-/**
- * Add here the scopes to request when obtaining an access token for MS Graph API. For more information, see:
- * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/resources-and-scopes.md
- */
-const tokenRequest = {
-    scopes: ["User.Read", "http://heat-counter.cyberbartels.de/Data.Analyze"],//scopes: ["User.Read", "Mail.Read"],
-    forceRefresh: false // Set this to "true" to skip a cached token and go to the server to get a new token
 };
